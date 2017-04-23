@@ -3,16 +3,22 @@ package TrieSearch;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map.Entry; 
+import java.util.Map.Entry;
+import java.util.Random;
+
 import BedTree.Data;
 
 public class EditDistanceQuery {
 	
+	//returns a list of strings in t that are within edit distance e of s
 	public static List<String> findWithinEditDistance(TrieTree t, String s, int e) {
 		List<String> ret = new LinkedList<String>();
 		HashSet<NodeTuple> h = new HashSet<NodeTuple>();
 
+		//add the base root node
 		h.add(new NodeTuple(t.root, 0));
+		
+		//find reachable through insertions/deletions/substitutions, then find matches again
 		HashSet<NodeTuple> temp = FindMatches(s, h, ret);
 		h.addAll(temp);
 		int x = 0;
@@ -36,6 +42,7 @@ public class EditDistanceQuery {
 	
 	//returns a hashtable of the substring matches between s at i and the given trie node
 	public static HashSet<NodeTuple> FindMatch(String s, TrieNode n, Integer i, List<String> list) {
+		//if its a leaf and at the end of the given string, add it to the list
 		if(n.isLeaf && i == s.length() - 1) {
 			if(!list.contains(n.getString()))
 				list.add(n.getString());
@@ -44,23 +51,21 @@ public class EditDistanceQuery {
 		HashSet<NodeTuple> h = new HashSet<NodeTuple>();
 		TrieNode x = n;
 		int temp = i;
+		//loops through every character as long as theres still matches
 		while(temp < s.length() && x.children.containsKey(s.charAt(temp))) {
-			for(Entry<Character, TrieNode> e : x.children.entrySet()) {
-				if(e.getKey().equals(s.charAt(temp))) {
-					h.add(new NodeTuple(e.getValue(), temp));
-					x = e.getValue();
-					if(x.isLeaf && temp == s.length() - 1) {
-						if(!list.contains(x.getString()))
-							list.add(x.getString());
-					}
-					temp++;
-					break;
-				}
+			x = x.children.get(s.charAt(temp));
+			h.add(new NodeTuple(x, temp));
+			//as above, add it to the list
+			if(x.isLeaf && temp == s.length() - 1) {
+				if(!list.contains(x.getString()))
+					list.add(x.getString());
 			}
+			temp++;
 		}
 		return h;
 	}
 	
+	//adds values to the hashset according to insertion, substitution, and deletion
 	public static HashSet<NodeTuple> Extension(HashSet<NodeTuple> h, HashSet<NodeTuple> checker) {
 		HashSet<NodeTuple> ret = new HashSet<NodeTuple>();
 		
@@ -82,9 +87,16 @@ public class EditDistanceQuery {
     	TrieTree t = new TrieTree();
     	String[] s = Data.getDataSet("IMDB_dataset.csv", 100);
     	t.addStrings(s);
-    	List<String> list = findWithinEditDistance(t, "Jamie Cameron", 20);
-		for(String e : list) {
-			System.out.println(e);
-		}
+    	
+    	int numIters = 100;
+    	int editDistance = 10;
+    	for(int i = 0; i < numIters; i++) {
+    		String data = Data.misspell(s[(int)(Math.random() * s.length)]);
+	    	List<String> list = findWithinEditDistance(t, data, editDistance);
+			for(String e : list) {
+				System.out.println(e);
+			}
+			System.out.println("End Iteration " + i + "\n");
+    	}
     }
 }
