@@ -11,6 +11,13 @@ public class Bed_tree {
 		degree = x;
 		tree = new LeafNode(degree);
 	}
+	
+	public Bed_tree(int x, String[] data_set){
+		degree = x;
+		tree = new LeafNode(degree);
+		for(String s: data_set)
+			insert(s);
+	}
 
 	public void insert(String x){
 		Data dnode = new Data(x);
@@ -25,6 +32,10 @@ public class Bed_tree {
 		if(tree.search(new Data(x)))
 			return true;
 		return false;
+	}
+	
+	public Node getRoot(){
+		return tree;
 	}
 
 	public LinkedList<String> RangeQuery(String q, Node N, int threshold, String min, String max){
