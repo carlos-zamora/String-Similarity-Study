@@ -1,68 +1,41 @@
+package BedTree;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Main {
-
-	public static void main(String[] args) {
-		
-		/*
-		String [][] imdb_data = getDataSet("IMDB_dataset.csv", 100);
-		
-		for(int i=0; i<imdb_data.length; i++){
-			System.out.println(imdb_data[i][0]);
-		}
-		*/
-		
-		int x = 1000000;
-		String arr[] = new String[x];
-		String s = "misspell";
-		int [] data = new int[6];
-		
-		for(int i=0; i<x; i++)
-			arr[i] = misspell("misspell");
-		
-		int count = 0;
-		for(int i=0; i<x; i++){
-			for(int j=0; j<arr[i].length(); j++){
-				if(arr[i].charAt(j) != s.charAt(j))
-					count++;
-			}
-			data[count]++;
-			count=0;
-		}
-		
-		for(int i=0; i<data.length; i++)
-			System.out.println(i + ": " + data[i]);
-		
-		/*
-		Bed_tree tree = new Bed_tree(4);
-		
-		//boolean b = tree.verifyED("Jim Grey", "Jim Grey", 0);
-		
-		//System.out.println(b);
-		
-		
-		tree.insert("a");
-		tree.insert("b");
-		tree.insert("c");
-		tree.insert("d");
-		tree.insert("e");
-		tree.insert("f");
-		tree.insert("g");
-		tree.insert("h");
-		tree.insert("i");
-		tree.insert("j");
-		tree.insert("k");
-		System.out.print(tree);
-		*/
+public class Data {
+	private String data;
+	
+	public Data(){
+		data = null;
+	}
+	
+	public Data(String data){
+		this.data = data;
 	}
 	
 	
-	private static String [][] getDataSet(String fileName, int size){
+	public String toString(){
+		return data.toString();
+	}
+	
+	public String getData(){;
+		return data;
+	}
+	
+	
+	// compares data to other using DictionaryOrder
+	// OUTPUT: true  - data <= other
+	//		   false - otherwise
+	public boolean inOrder(Data other){
+		return data.compareTo(other.getData()) <= 0; 
+	}
+	
+	public static String [] getDataSet(String fileName, int size){
 		BufferedReader reader = null;
-		String [][] data_set = new String[size][3];
+		String [] data_set = new String[size];
 		
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
@@ -71,11 +44,7 @@ public class Main {
 			int index = 0;
 			
 			while(line != null && index < size){
-				
-				String [] line_split = line.split(",");
-				
-				for(int i=0; i<line_split.length; i++)
-					data_set[index][i] = line_split[i];
+				data_set[index] = line;
 				
 				line = reader.readLine();
 				index++;
@@ -95,8 +64,7 @@ public class Main {
 		return data_set;
 	}
 
-
-	private static String misspell(String q){
+	public static String misspell(String q){
 		double r1 = Math.random();
 		char[] result = q.toCharArray();
 		int index = (int) (Math.random()*result.length);
@@ -125,7 +93,7 @@ public class Main {
 	}
 	
 	//returns a random letter (uppercase and lowercase)
-	private static char randomLetter(){
+	public static char randomLetter(){
 		//char A-Z
 		int r1 = (int) (Math.random()*26+65);
 		
@@ -138,10 +106,11 @@ public class Main {
 		return (char) r2;
 	}
 
-	private static String convertToString(char [] arr){
+	public static String convertToString(char [] arr){
 		String s = "";
 		for(int i=0; i<arr.length; i++)
 			s+=arr[i];
 		return s;
 	}
+	
 }

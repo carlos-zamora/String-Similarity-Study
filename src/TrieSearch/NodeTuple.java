@@ -15,7 +15,6 @@ public class NodeTuple {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + i;
-		result = prime * result + ((n == null) ? 0 : n.hashCode());
 		return result;
 	}
 

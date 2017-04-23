@@ -1,3 +1,4 @@
+package BedTree;
 
 public class LeafNode extends Node{
 	private LeafNode nextNode;

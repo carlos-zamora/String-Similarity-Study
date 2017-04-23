@@ -3,7 +3,8 @@ package TrieSearch;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map.Entry; 
+import BedTree.Data;
 
 public class EditDistanceQuery {
 	
@@ -79,10 +80,9 @@ public class EditDistanceQuery {
 	
     public static void main(String[] args) {
     	TrieTree t = new TrieTree();
-    	String[] s = {"cat", "bar", "car", "far", "lark", "people", "luke", "run", "qwerqwer", "cattle"};
+    	String[] s = Data.getDataSet("IMDB_dataset.csv", 100);
     	t.addStrings(s);
-    	
-    	List<String> list = findWithinEditDistance(t, "pillow", 5);
+    	List<String> list = findWithinEditDistance(t, "Jamie Cameron", 20);
 		for(String e : list) {
 			System.out.println(e);
 		}

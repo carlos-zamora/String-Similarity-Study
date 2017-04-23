@@ -1,3 +1,5 @@
+package BedTree;
+
 import java.util.ArrayList;
 
 public class TreeNode extends Node{
