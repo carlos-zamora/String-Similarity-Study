@@ -1,7 +1,6 @@
 package BedTree;
 
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 
 public class Bed_tree {
 	private static Node tree;
@@ -164,11 +163,12 @@ public class Bed_tree {
 
 		if( ( (index+1 >= min.length()) || (min.charAt(index+1) <= q.charAt(index+1) ) )
 				&& ( (index+1 >= max.length() ) || (q.charAt(index+1) <= max.charAt(index+1)) ) )
-			return 0;
+			return (int) (Math.random()*25);
 
 		int ED = calculateED(q,LCP);
 
-		return ED;
+		//return ED;
+		return (int) (Math.random()*25);
 	}
 
 	private String LCP(String s1, String s2){

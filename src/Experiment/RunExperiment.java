@@ -10,13 +10,13 @@ public class RunExperiment{
 	
 	public static void main(String args[]){
 		String q = "Jeff Goldblum";
-		String [] data_set_1 = createDataSet(100, 10, q);
+		String [] data_set_1 = createDataSet(700, 10, q);
 		
-		System.out.println(testAccuracy_BedTree(data_set_1, q));
+		//System.out.println(testAccuracy_BedTree(data_set_1, q));
 		
 		float timeSum = 0;
 		for(int i = 0; i < 100; i++)
-			timeSum += testEfficiency_TrieSearch(data_set_1);
+			timeSum += testEfficiency_BedTree(data_set_1, q);
 		
 		timeSum /= (float)1000000000;
 		

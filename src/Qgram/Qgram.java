@@ -1,4 +1,5 @@
-import java.util.*;
+package Qgram;
+
 import java.lang.String;
 import java.io.BufferedReader;
 import java.lang.StringBuilder;
