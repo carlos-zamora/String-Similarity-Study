@@ -159,16 +159,17 @@ public class Bed_tree {
 
 	private int lower_bound(String q, String min, String max){
 		String LCP = LCP(min,max);
+		String q_sub = q.substring(0, LCP.length());
 		int index = LCP.length()-1;
 
-		if( ( (index+1 >= min.length()) || (min.charAt(index+1) <= q.charAt(index+1) ) )
-				&& ( (index+1 >= max.length() ) || (q.charAt(index+1) <= max.charAt(index+1)) ) )
-			return (int) (Math.random()*25);
+		//if( ( (index+1 >= min.length()) || (min.charAt(index+1) <= q.charAt(index+1) ) )
+		//		&& ( (index+1 >= max.length() ) || (q.charAt(index+1) <= max.charAt(index+1)) ) )
+			//return (int) (Math.random()*125);
 
-		int ED = calculateED(q,LCP);
+		int ED = calculateED(q_sub,LCP);
 
-		//return ED;
-		return (int) (Math.random()*25);
+		return ED;
+		//return (int) (Math.random()*125);
 	}
 
 	private String LCP(String s1, String s2){
