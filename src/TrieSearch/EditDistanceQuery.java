@@ -83,6 +83,15 @@ public class EditDistanceQuery {
 		return ret;
 	}
 	
+	public static List<String> test(int editDistance, String[] s) {
+		TrieTree t = new TrieTree();
+    	t.addStrings(s);
+    	
+    	String data = Data.misspell(s[(int)(Math.random() * s.length)]);
+	    List<String> list = findWithinEditDistance(t, data, editDistance);
+    	return list;
+	}
+	
     public static void main(String[] args) {
     	TrieTree t = new TrieTree();
     	String[] s = Data.getDataSet("IMDB_dataset.csv", 397);
