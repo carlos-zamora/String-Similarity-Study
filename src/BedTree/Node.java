@@ -18,7 +18,7 @@ public abstract class Node {
 	
 	
 	public boolean isLeafNode(){
-		return this.getClass().getName().trim().equals("LeafNode");
+		return this.getClass().getName().trim().equals("BedTree.LeafNode");
 	}
 	
 	// checks if the Node is full

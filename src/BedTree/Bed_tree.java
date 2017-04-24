@@ -11,12 +11,12 @@ public class Bed_tree {
 		degree = x;
 		tree = new LeafNode(degree);
 	}
-	
+
 	public Bed_tree(int x, String[] data_set){
 		degree = x;
 		tree = new LeafNode(degree);
 		for(String s: data_set){
-			
+
 			insert(s);
 			//System.out.println(toString());
 		}
@@ -36,7 +36,7 @@ public class Bed_tree {
 			return true;
 		return false;
 	}
-	
+
 	public Node getRoot(){
 		return tree;
 	}
@@ -97,8 +97,9 @@ public class Bed_tree {
 				if(node.isLeafNode())
 					done = true;
 				else{
-					for(int j=0; j<node.size()+1; j++)
+					for(int j=0; j<node.size(); j++){
 						nextLevelList.add(((TreeNode)node).getPointerAt(j));
+					}
 				}
 			}
 			result += toprint + '\n';
@@ -110,9 +111,9 @@ public class Bed_tree {
 	public boolean verifyED(String s1, String s2, int threshold){
 		if(Math.abs(s1.length()-s2.length()) > threshold)
 			return false;
-		
+
 		int ED = calculateED(s1, s2);
-		
+
 		if(ED <= threshold)
 			return true;
 		return false;
@@ -146,7 +147,7 @@ public class Bed_tree {
 				table[i][j] = min(d1,min(d2,d3));
 			}
 		}
-		
+
 		return table[s1.length()][s2.length()];
 	} 
 
@@ -160,11 +161,13 @@ public class Bed_tree {
 	private int lower_bound(String q, String min, String max){
 		String LCP = LCP(min,max);
 		int index = LCP.length()-1;
-		
-		//if(())
-		
+
+		if( ( (index+1 >= min.length()) || (min.charAt(index+1) <= q.charAt(index+1) ) )
+				&& ( (index+1 >= max.length() ) || (q.charAt(index+1) <= max.charAt(index+1)) ) )
+			return 0;
+
 		int ED = calculateED(q,LCP);
-		
+
 		return ED;
 	}
 
