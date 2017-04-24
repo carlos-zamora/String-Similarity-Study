@@ -16,7 +16,7 @@ public class EditDistanceQuery {
 		HashSet<NodeTuple> h = new HashSet<NodeTuple>();
 
 		//add the base root node
-		h.add(new NodeTuple(t.root, 0));
+		h.add(new NodeTuple(t.root, -1));
 		
 		//find reachable through insertions/deletions/substitutions, then find matches again
 		HashSet<NodeTuple> temp = FindMatches(s, h, ret);
@@ -35,7 +35,7 @@ public class EditDistanceQuery {
 	public static HashSet<NodeTuple> FindMatches(String s, HashSet<NodeTuple> h, List<String> list) {
 		HashSet<NodeTuple> tempH = new HashSet<NodeTuple>(h);
 		for(NodeTuple e : h) {
-			tempH.addAll(FindMatch(s, e.n, e.i, list));
+			tempH.addAll(FindMatch(s, e.n, e.i+1, list));
 		}
 		return tempH;
 	}
@@ -43,7 +43,7 @@ public class EditDistanceQuery {
 	//returns a hashtable of the substring matches between s at i and the given trie node
 	public static HashSet<NodeTuple> FindMatch(String s, TrieNode n, Integer i, List<String> list) {
 		//if its a leaf and at the end of the given string, add it to the list
-		if(n.isLeaf && i == s.length() - 1) {
+		if(n.isLeaf && i >= s.length() - 1) {
 			if(!list.contains(n.getString()))
 				list.add(n.getString());
 		}
@@ -56,7 +56,7 @@ public class EditDistanceQuery {
 			x = x.children.get(s.charAt(temp));
 			h.add(new NodeTuple(x, temp));
 			//as above, add it to the list
-			if(x.isLeaf && temp == s.length() - 1) {
+			if(x.isLeaf && temp >= s.length() - 1) {
 				if(!list.contains(x.getString()))
 					list.add(x.getString());
 			}
@@ -71,12 +71,12 @@ public class EditDistanceQuery {
 		
 		for(NodeTuple n : h) {
 			for(TrieNode x : n.n.children.values()) {
-				if(!checker.contains(new NodeTuple(x, n.i+1)))
+				if(!checker.contains(new NodeTuple(x, n.i+2)))
 					ret.add(new NodeTuple(x, n.i+1));
-				if(!checker.contains(new NodeTuple(x, n.i)))
+				if(!checker.contains(new NodeTuple(x, n.i+1)))
 					ret.add(new NodeTuple(x, n.i));
 			}
-			if(!checker.contains(new NodeTuple(n.n, n.i+1)))
+			if(!checker.contains(new NodeTuple(n.n, n.i+2)))
 				ret.add(new NodeTuple(n.n, n.i+1));
 		}
 		
@@ -85,11 +85,11 @@ public class EditDistanceQuery {
 	
     public static void main(String[] args) {
     	TrieTree t = new TrieTree();
-    	String[] s = Data.getDataSet("IMDB_dataset.csv", 100);
+    	String[] s = Data.getDataSet("IMDB_dataset.csv", 397);
     	t.addStrings(s);
     	
     	int numIters = 100;
-    	int editDistance = 10;
+    	int editDistance = 3;
     	for(int i = 0; i < numIters; i++) {
     		String data = Data.misspell(s[(int)(Math.random() * s.length)]);
 	    	List<String> list = findWithinEditDistance(t, data, editDistance);
