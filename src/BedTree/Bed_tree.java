@@ -15,8 +15,11 @@ public class Bed_tree {
 	public Bed_tree(int x, String[] data_set){
 		degree = x;
 		tree = new LeafNode(degree);
-		for(String s: data_set)
+		for(String s: data_set){
+			
 			insert(s);
+			//System.out.println(toString());
+		}
 	}
 
 	public void insert(String x){
@@ -62,7 +65,7 @@ public class Bed_tree {
 					result.addAll(RangeQuery(q, ((TreeNode) N).getPointerAt(j), threshold, sj1, sj2));
 			}
 
-			String s_m = N.getDataAt(N.size()).getData();
+			String s_m = N.getDataAt(N.size()-1).getData();
 			if(lower_bound(q, s_m, max) <= threshold)
 				result.addAll(RangeQuery(q, ((TreeNode) N).getPointerAt(N.size()), threshold, s_m, max));
 		}
@@ -156,6 +159,10 @@ public class Bed_tree {
 
 	private int lower_bound(String q, String min, String max){
 		String LCP = LCP(min,max);
+		int index = LCP.length()-1;
+		
+		//if(())
+		
 		int ED = calculateED(q,LCP);
 		
 		return ED;
@@ -170,14 +177,5 @@ public class Bed_tree {
 		if(s1.length() < s2.length())
 			return s1;
 		return s2;
-	}
-
-
-	private void print(int[][] t){
-		for(int i=0; i<t.length; i++){
-			for(int j=0; j<t[i].length; j++)
-				System.out.print(t[i][j] + " ");
-			System.out.println();
-		}
 	}
 }

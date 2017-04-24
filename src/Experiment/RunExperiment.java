@@ -33,7 +33,23 @@ public class RunExperiment{
 		return results.size();
 	}
 	
-	//public static int testAccuracy_Qgram(String [] data_set){}
-	//public static int testAccuracy_TrieSearch(String [] data_set){}
+	//public static int testAccuracy_Qgram(String [] data_set, String q){}
+	//public static int testAccuracy_TrieSearch(String [] data_set, String q){}
 	
+	
+	public static long testEfficiency_BedTree(String [] data_set, String q){
+		
+		long start_time = System.nanoTime();
+		
+		int order = (int) (Math.sqrt(data_set.length)) + 1;
+		Bed_tree tree = new Bed_tree(order, data_set);
+		
+		LinkedList<String> results = tree.RangeQuery(q, tree.getRoot(), 5, "A", "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+		long end_time = System.nanoTime();
+		
+		return start_time - end_time;
+	}
+	
+	//public static int testEfficiency_Qgram(String [] data_set, String q){}
+	//public static int testEfficiency_TrieSearch(String [] data_set, String q){}
 }
