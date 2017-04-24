@@ -24,7 +24,7 @@ public class TreeNode extends Node{
 			}
 		}
 		
-		return (Node) pointer.get(pointer.size());
+		return (Node) pointer.get(pointer.size()-1);
 	}
 
 	public Node getPointerAt(int index){
