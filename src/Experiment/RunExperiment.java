@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import BedTree.*;
+import TrieSearch.EditDistanceQuery;
 
 public class RunExperiment{
 	
@@ -12,6 +13,14 @@ public class RunExperiment{
 		String [] data_set_1 = createDataSet(100, 10, q);
 		
 		System.out.println(testAccuracy_BedTree(data_set_1, q));
+		
+		float timeSum = 0;
+		for(int i = 0; i < 100; i++)
+			timeSum += testEfficiency_TrieSearch(data_set_1);
+		
+		timeSum /= (float)1000000000;
+		
+		System.out.println(timeSum + "s");
 		
 	}
 	
@@ -34,7 +43,9 @@ public class RunExperiment{
 	}
 	
 	//public static int testAccuracy_Qgram(String [] data_set, String q){}
-	//public static int testAccuracy_TrieSearch(String [] data_set, String q){}
+	public static long testAccuracy_TrieSearch(String[] q){
+		return (EditDistanceQuery.test(5, q)).size();
+	}
 	
 	
 	public static long testEfficiency_BedTree(String [] data_set, String q){
@@ -47,9 +58,17 @@ public class RunExperiment{
 		LinkedList<String> results = tree.RangeQuery(q, tree.getRoot(), 5, "A", "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
 		long end_time = System.nanoTime();
 		
-		return start_time - end_time;
+		return end_time - start_time;
 	}
 	
 	//public static int testEfficiency_Qgram(String [] data_set, String q){}
-	//public static int testEfficiency_TrieSearch(String [] data_set, String q){}
+	public static long testEfficiency_TrieSearch(String[] q){	
+		long start_time = System.nanoTime();
+		
+		EditDistanceQuery.test(2, q);
+		
+		long end_time = System.nanoTime();
+		
+		return end_time - start_time;
+	}
 }
