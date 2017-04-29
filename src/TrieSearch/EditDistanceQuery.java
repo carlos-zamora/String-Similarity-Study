@@ -83,22 +83,24 @@ public class EditDistanceQuery {
 		return ret;
 	}
 	
-	public static List<String> test(int editDistance, String[] s) {
+	public static void test(int editDistance, String[] s, int iters) {
 		TrieTree t = new TrieTree();
     	t.addStrings(s);
     	
-    	String data = Data.misspell(s[(int)(Math.random() * s.length)]);
-	    List<String> list = findWithinEditDistance(t, data, editDistance);
-    	return list;
+    	String data = "Jeff Goldblum";
+    	for(int i = 0; i < iters; i++) {
+    		System.out.println(i);
+    		findWithinEditDistance(t, data, editDistance);
+    	}
 	}
 	
     public static void main(String[] args) {
     	TrieTree t = new TrieTree();
-    	String[] s = Data.getDataSet("IMDB_dataset.csv", 397);
+    	String[] s = Data.getDataSet("IMDB_dataset.csv", 100);
     	t.addStrings(s);
     	
     	int numIters = 100;
-    	int editDistance = 3;
+    	int editDistance = 5;
     	for(int i = 0; i < numIters; i++) {
     		String data = Data.misspell(s[(int)(Math.random() * s.length)]);
 	    	List<String> list = findWithinEditDistance(t, data, editDistance);

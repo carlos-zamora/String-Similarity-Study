@@ -57,7 +57,7 @@ public class Qgram {
     
     String[] gramString = new String[s.length() - 1];
     
-    for (int i = 0; i < s.length(); i ++) {
+    for (int i = 0; i < s.length()-1; i ++) {
       String temp = new StringBuilder().append(s.charAt(i)).append(s.charAt(i + 1)).toString();
       gramString[i] = temp;
     }
@@ -79,12 +79,15 @@ public class Qgram {
       if (!same) {
         ed ++; 
       }
+      if(ed > 2){
+    	  break;
+      }
       
       i ++;
     }
     
     if (ed <= 5) {
-      System.out.println(s); 
+      //System.out.println(s); 
     }
     
   }

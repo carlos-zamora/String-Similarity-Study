@@ -4,31 +4,23 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import BedTree.*;
+import Qgram.*;
 import TrieSearch.EditDistanceQuery;
-import QGram.*;
 
 public class RunExperiment{
  
  public static void main(String args[]){
   String q = "Jeff Goldblum";
-  String [] data_set_1 = createDataSet(700, 10, q);
-  int[] d = new int[2];
-  d[0] = 700;
-  d[1] = 10;
+  String [] data_set_1 = createDataSet(5000, 10, q);
   
-  System.out.println(testEfficiency_Qgram(d[0], q));
-  System.out.println(testEfficiency_Qgram(d[1], q));
-  System.out.println(testAccuracy_BedTree(data_set_1, q));
   
-  /*
+  
   float timeSum = 0;
-  for(int i = 0; i < 100; i++)
-   timeSum += testEfficiency_BedTree(data_set_1, q);
+  timeSum += testEfficiency_TrieSearch(2, data_set_1);
   
   timeSum /= (float)1000000000;
-  */
   
-  //System.out.println(timeSum + "s");
+  System.out.println(timeSum + "s");
   
  }
  
@@ -50,13 +42,7 @@ public class RunExperiment{
   
   LinkedList<String> results = tree.RangeQuery(q, tree.getRoot(), 5, "A", "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
   return results.size();
- }
- 
- //public static int testAccuracy_Qgram(String [] data_set, String q){}
- public static long testAccuracy_TrieSearch(String[] q){
-  return (EditDistanceQuery.test(5, q)).size();
- }
- 
+ } 
  
  public static long testEfficiency_BedTree(String [] data_set, String q){
   
@@ -72,10 +58,10 @@ public class RunExperiment{
  }
  
  //public static int testEfficiency_Qgram(String [] data_set, String q){}
- public static long testEfficiency_TrieSearch(String[] q){ 
+ public static long testEfficiency_TrieSearch(int ED, String[] q){ 
   long start_time = System.nanoTime();
   
-  EditDistanceQuery.test(2, q);
+  EditDistanceQuery.test(ED, q, 100);
   
   long end_time = System.nanoTime();
   

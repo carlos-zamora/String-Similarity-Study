@@ -52,8 +52,7 @@ public class TrieNode {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((c == null) ? 0 : c.hashCode());
-		result = prime * result + ((children == null) ? 0 : children.hashCode());
+		result = prime * result;
 		return result;
 	}
 }
