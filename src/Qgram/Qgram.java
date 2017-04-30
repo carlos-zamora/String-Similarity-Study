@@ -12,25 +12,18 @@ public class Qgram {
   public ArrayList<String> output = new ArrayList<String>(1); //output list
   
   //constructor: takes file, comparison wstring, and edit distance; calls compare and calls outputReturn
-  public Qgram(int num, String comp, String file) {
+  public Qgram(int num, String comp, String[] file) {
   
     String[] word = this.twoGrams(this.usefulLetters(comp));
-    BufferedReader br = null;
-    String line = "";
-    String csvSplitBy = "\n";
-    try {
-      br = new BufferedReader(new FileReader(file));
-      int i = 0;
-      while ((line = br.readLine()) != null && i < num) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(line.split(csvSplitBy));
-        String[] gr = this.twoGrams(this.usefulLetters(sb.toString()));
-        if (this.compare(gr, word, sb.toString())) {
-          output.add(sb.toString());
-        }
-        i ++;
+    int i = 0;
+    while (i < file.length) {
+      String[] gr = this.twoGrams(this.usefulLetters(file[i]);
+      if (this.compare(gr, word, file[i])) {
+        output.add(file[i]);
       }
+      i ++;
     }
+  }
     
     catch (FileNotFoundException e) {
     }
