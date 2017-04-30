@@ -57,7 +57,7 @@ public class RunExperiment{
 		return end_time - start_time;
 	}
 
-	public static long testEfficiency_Qgram(int num, String q) {
+	public static long testEfficiency_Qgram(int ED, String[] data_set, String q) {
 
 		long start_time = System.nanoTime();
 
