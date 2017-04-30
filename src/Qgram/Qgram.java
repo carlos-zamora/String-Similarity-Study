@@ -4,26 +4,30 @@ import java.lang.String;
 import java.io.BufferedReader;
 import java.lang.StringBuilder;
 import java.io.*;
+import java.util.ArrayList;
 
 public class Qgram {
   
-  public String comp;
+  public String comp; //comparison string
+  public ArrayList<String> output = new ArrayList<String>(1); //output list
   
+  //constructor: takes file, comparison wstring, and edit distance; calls compare and calls outputReturn
+  public Qgram(int num, String comp, String file) {
   
-  public Qgram(int num, String comp) {
-    
     String[] word = this.twoGrams(this.usefulLetters(comp));
     BufferedReader br = null;
     String line = "";
     String csvSplitBy = "\n";
     try {
-      br = new BufferedReader(new FileReader("IMDB_dataset.csv"));
+      br = new BufferedReader(new FileReader(file));
       int i = 0;
       while ((line = br.readLine()) != null && i < num) {
         StringBuilder sb = new StringBuilder();
         sb.append(line.split(csvSplitBy));
         String[] gr = this.twoGrams(this.usefulLetters(sb.toString()));
-        this.compare(gr, word, sb.toString());
+        if (this.compare(gr, word, sb.toString())) {
+          output.add(sb.toString());
+        }
         i ++;
       }
     }
@@ -33,6 +37,7 @@ public class Qgram {
     catch (IOException e) {
     }
     
+    this.outputReturn();
   }
   
   //takes out all spaces and special characters and makes everything lower case
@@ -57,7 +62,7 @@ public class Qgram {
     
     String[] gramString = new String[s.length() - 1];
     
-    for (int i = 0; i < s.length()-1; i ++) {
+    for (int i = 0; i < s.length() - 1; i ++) {
       String temp = new StringBuilder().append(s.charAt(i)).append(s.charAt(i + 1)).toString();
       gramString[i] = temp;
     }
@@ -65,7 +70,8 @@ public class Qgram {
     return gramString;
   }
   
-  public void compare(String[] comp, String[] word, String s) {
+  //compares the 2-grams in the input string to the 2-grams in that particular string in the data set
+  public boolean compare(String[] comp, String[] word, String s) {
     
     boolean same = false;
     int ed = 0;
@@ -79,26 +85,26 @@ public class Qgram {
       if (!same) {
         ed ++; 
       }
-      if(ed > 2){
-    	  break;
+      if (ed > 5){
+       break;
       }
       
       i ++;
     }
     
     if (ed <= 5) {
-      //System.out.println(s); 
+      return true;
+    }
+    
+    else {
+      return false;
     }
     
   }
   
-  public static void main(String[] args) {
-    
-    Qgram gram = new Qgram(100, "John Travolta");
-    
-    
+  //returns the arraylist of possible strings
+  public ArrayList<String> outputReturn() {
+   return this.output; 
   }
+
 }
-
-
-
