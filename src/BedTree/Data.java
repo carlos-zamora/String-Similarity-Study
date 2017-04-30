@@ -44,6 +44,13 @@ public class Data {
 			int index = 0;
 			
 			while(line != null && index < size){
+				
+				//CSV files treat entries with ',' character differently
+				//Instead of the pure entry, the entry is wrapped in ""
+				//this removes that from the entry
+				if(line.charAt(0) == '"')
+					line = line.substring(1, line.length()-1);
+				
 				data_set[index] = line;
 				
 				line = reader.readLine();

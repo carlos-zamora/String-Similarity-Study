@@ -164,12 +164,11 @@ public class Bed_tree {
 
 		//if( ( (index+1 >= min.length()) || (min.charAt(index+1) <= q.charAt(index+1) ) )
 		//		&& ( (index+1 >= max.length() ) || (q.charAt(index+1) <= max.charAt(index+1)) ) )
-			//return (int) (Math.random()*125);
+			//return
 
 		int ED = calculateED(q_sub,LCP);
 
 		return ED;
-		//return (int) (Math.random()*125);
 	}
 
 	private String LCP(String s1, String s2){
