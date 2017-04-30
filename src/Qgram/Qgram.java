@@ -18,7 +18,7 @@ public class Qgram {
     int i = 0;
     while (i < file.length) {
       String[] gr = this.twoGrams(this.usefulLetters(file[i]);
-      if (this.compare(gr, word, file[i])) {
+      if (this.compare(gr, word, file[i], num)) {
         output.add(file[i]);
       }
       i ++;
@@ -64,7 +64,7 @@ public class Qgram {
   }
   
   //compares the 2-grams in the input string to the 2-grams in that particular string in the data set
-  public boolean compare(String[] comp, String[] word, String s) {
+  public boolean compare(String[] comp, String[] word, String s, int num) {
     
     boolean same = false;
     int ed = 0;
@@ -78,14 +78,14 @@ public class Qgram {
       if (!same) {
         ed ++; 
       }
-      if (ed > 5){
+      if (ed > num){
        break;
       }
       
       i ++;
     }
     
-    if (ed <= 5) {
+    if (ed <= num) {
       return true;
     }
     
