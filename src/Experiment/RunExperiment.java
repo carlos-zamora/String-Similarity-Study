@@ -61,7 +61,7 @@ public class RunExperiment{
 
 		long start_time = System.nanoTime();
 
-		Qgram g = new Qgram(num, q);
+		Qgram g = new Qgram(ED, q, data_set);
 
 		long end_time = System.nanoTime();
 
