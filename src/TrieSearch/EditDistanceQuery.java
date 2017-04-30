@@ -87,7 +87,7 @@ public class EditDistanceQuery {
     	
     	String data = "Jeff Goldblum";
     	for(int i = 0; i < iters; i++) {
-    		System.out.println(i);
+    		//System.out.println(i);
     		findWithinEditDistance(t, data, editDistance);
     	}
 	}

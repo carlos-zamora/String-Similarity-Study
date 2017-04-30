@@ -40,7 +40,8 @@ public class RunExperiment{
 
 		int order = (int) (Math.sqrt(data_set.length)) + 1;
 		Bed_tree tree = new Bed_tree(order, data_set);
-
+		
+		
 		LinkedList<String> results = tree.RangeQuery(q, tree.getRoot(), 5, "A", "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
 		long end_time = System.nanoTime();
 
